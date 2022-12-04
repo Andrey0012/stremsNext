@@ -1,0 +1,29 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+public class TestFindFirst {
+    public static void main(String[] args) {
+        Student std1 = new Student("Ivan", 'm', 25, 2, 5.5);
+        Student std2 = new Student("Petr", 'm', 22, 1, 5.8);
+        Student std3 = new Student("Elena", 'f', 23, 3, 5.4);
+        Student std4 = new Student("Andrey", 'm', 22, 3, 5.5);
+        Student std5 = new Student("Mariy", 'f', 24, 4, 4.8);
+        List<Student> students = new ArrayList<>();
+        students.add(std1);
+        students.add(std2);
+        students.add(std3);
+        students.add(std4);
+        students.add(std5);
+
+        Student first = students.stream()
+                .map(student -> {
+                    student.setName(student.getName().toUpperCase());
+                    return student;
+                }).filter(student -> student.getSex() == 'f')
+                .sorted((x, y) -> x.getAge() - y.getAge())
+                .findFirst().get();
+        System.out.println(first);
+    }
+
+}
